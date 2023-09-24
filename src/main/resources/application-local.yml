@@ -1,0 +1,10 @@
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/b2b_db
+    username: root
+    password: root
+
+app:
+  cors:
+    allowed-origins: http://localhost:3001,http://localhost:3000
