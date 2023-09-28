@@ -1,11 +1,13 @@
 package com.products.service.impl;
 
-import com.products.dto.GetProductDetailsDTO;
-import com.products.dto.LocationDTO;
+import com.products.dto.*;
+import com.products.entity.Department;
 import com.products.entity.Location;
+import com.products.entity.proc.GetCategoryDetails;
 import com.products.entity.proc.GetProductDetails;
-import com.products.mapper.GetProductDetailsMapper;
-import com.products.mapper.LocationMapper;
+import com.products.entity.proc.GetSubCategoryDetails;
+import com.products.mapper.*;
+import com.products.repository.DepartmentRepository;
 import com.products.repository.LocationRepository;
 import com.products.service.LocationService;
 import com.products.util.Constants;
@@ -27,12 +29,21 @@ public class LocationServiceImpl implements LocationService {
     LocationRepository locationRepository ;
 
     @Autowired
+    DepartmentRepository departmentRepository ;
+    @Autowired
     LocationMapper locationMapper ;
 
+    @Autowired
+    DepartmentMapper departmentMapper ;
 
     @Autowired
     GetProductDetailsMapper getProductDetailsMapper ;
 
+    @Autowired
+    GetCategoryDetailsMapper getCategoryDetailsMapper ;
+
+    @Autowired
+    GetSubCategoryDetailsMapper getSubCategoryDetailsMapper ;
 
 
     @Override
@@ -65,6 +76,73 @@ public class LocationServiceImpl implements LocationService {
     public LocationDTO save(LocationDTO locationDTO) {
         return locationMapper.entityToDTO(
                 locationRepository.save(locationMapper.dtoToEntity(locationDTO)));
+    }
+
+    @Override
+    public List<DepartmentDTO> findAllByLocationId(Integer locationId) {
+        List<Department> result = new ArrayList();
+        departmentRepository.findAllByLocationId(locationId).forEach(result :: add);
+        return departmentMapper.entitiesToDTOs(result) ;
+    }
+
+    @Override
+    public List<GetCategoryDetailsDTO> findAllCategories(Integer locationId, Integer departmentId) {
+
+        StoredProcedureQuery procedureQuery = entityManager
+                .createNamedStoredProcedureQuery(Constants.PROC_getCategoryDetails_prod_serv);
+        procedureQuery.setParameter("location_id", locationId);
+        procedureQuery.setParameter("department_id", departmentId);
+
+
+        procedureQuery.execute();
+        @SuppressWarnings("unchecked")
+        List<GetCategoryDetails> resultList = procedureQuery.getResultList();
+        if(resultList==null || resultList.isEmpty())
+            return new ArrayList<>();
+
+        return getCategoryDetailsMapper.entitiesToDTOs(resultList);
+    }
+
+    @Override
+    public List<GetSubCategoryDetailsDTO> findAllSubCategories(Integer locationId, Integer departmentId, Integer categoryId) {
+
+        StoredProcedureQuery procedureQuery = entityManager
+                .createNamedStoredProcedureQuery(Constants.PROC_getSubCategoryDetails_prod_serv);
+        procedureQuery.setParameter("location_id", locationId);
+        procedureQuery.setParameter("department_id", departmentId);
+        procedureQuery.setParameter("category_id", categoryId);
+
+        procedureQuery.execute();
+        @SuppressWarnings("unchecked")
+        List<GetSubCategoryDetails> resultList = procedureQuery.getResultList();
+        if(resultList==null || resultList.isEmpty())
+            return new ArrayList<>();
+
+        return getSubCategoryDetailsMapper.entitiesToDTOs(resultList);
+
+    }
+
+    @Override
+    public GetSubCategoryDetailsDTO findAllSubCategoriesById(Integer locationId, Integer departmentId,
+                                                             Integer categoryId, Integer subCategoryId) {
+
+        StoredProcedureQuery procedureQuery = entityManager
+                .createNamedStoredProcedureQuery(Constants.PROC_getSubCategoryDetails_by_Id_prod_serv);
+        procedureQuery.setParameter("location_id", locationId);
+        procedureQuery.setParameter("department_id", departmentId);
+        procedureQuery.setParameter("category_id", categoryId);
+        procedureQuery.setParameter("sub_category_id", subCategoryId);
+
+
+        procedureQuery.execute();
+        @SuppressWarnings("unchecked")
+        GetSubCategoryDetails result = (GetSubCategoryDetails)procedureQuery.getSingleResult();
+        if(result==null )
+            return null;
+
+        return getSubCategoryDetailsMapper.entityToDTO(result) ;
+
+
     }
 
 

@@ -1,8 +1,6 @@
 package com.products.service;
 
-import com.products.dto.GetProductDetailsDTO;
-import com.products.dto.LocationDTO;
-import com.products.dto.SubCategoryDTO;
+import com.products.dto.*;
 
 import java.util.List;
 
@@ -14,5 +12,17 @@ public interface LocationService {
 
 
     LocationDTO save(LocationDTO locationDTO);
+
+    List<DepartmentDTO> findAllByLocationId(Integer locationId);
+
+
+    List<GetCategoryDetailsDTO> findAllCategories(Integer locationId , Integer departmentId);
+
+    List<GetSubCategoryDetailsDTO> findAllSubCategories(Integer locationId , Integer departmentId , Integer categoryId);
+
+    GetSubCategoryDetailsDTO findAllSubCategoriesById(Integer locationId , Integer departmentId
+            , Integer categoryId , Integer subCategoryId );
+
+
 
 }

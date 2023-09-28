@@ -1,23 +1,25 @@
 package com.products.dto;
 
-import com.products.entity.SubCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
+import javax.persistence.Column;
 import java.io.Serializable;
-import java.util.List;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CategoryDTO implements Serializable {
+public class GetCategoryDetailsDTO implements Serializable {
 
-    private Integer categoryId;
+    private int categoryId;
     private String categoryName;
+    private int location_id;
+    private String locationName;
     private int departmentId;
+    private String departmentName;
 
 }

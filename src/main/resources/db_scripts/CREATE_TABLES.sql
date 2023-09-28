@@ -1,10 +1,5 @@
 
--- locations_prod_serv
-CREATE TABLE locations_prod_serv
-(
-location_id INT AUTO_INCREMENT PRIMARY KEY,
-location_name VARCHAR(100),
-);
+
 
 
 -- roles
@@ -24,12 +19,30 @@ CREATE TABLE b2b_users_prod_serv (
      FOREIGN KEY (role_id) REFERENCES roles_prod_serv (role_id)
 );
 
+-- locations_prod_serv
+CREATE TABLE locations_prod_serv
+(
+location_id INT AUTO_INCREMENT PRIMARY KEY,
+location_name VARCHAR(100),
+);
+
+-- departments_prod_serv
+CREATE TABLE departments_prod_serv
+(
+department_id INT AUTO_INCREMENT PRIMARY KEY,
+department_name VARCHAR(100),
+location_id INT ,
+FOREIGN KEY (location_id) REFERENCES locations_prod_serv (location_id)
+);
+
+
 -- categories_prod_serv
 CREATE TABLE categories_prod_serv
 (
 category_id INT AUTO_INCREMENT PRIMARY KEY,
 category_name VARCHAR(100),
-
+department_id INT ,
+FOREIGN KEY (department_id) REFERENCES departments_prod_serv (department_id)
 );
 
 -- sub_categories_prod_serv
@@ -43,14 +56,6 @@ FOREIGN KEY (category_id) REFERENCES categories_prod_serv (category_id) ,
 FOREIGN KEY (department_id) REFERENCES departments_prod_serv (department_id)
 );
 
--- departments_prod_serv
-CREATE TABLE departments_prod_serv
-(
-department_id INT AUTO_INCREMENT PRIMARY KEY,
-department_name VARCHAR(100),
-location_id INT ,
-FOREIGN KEY (location_id) REFERENCES locations_prod_serv (location_id)
-);
 
 
 -- products_prod_serv

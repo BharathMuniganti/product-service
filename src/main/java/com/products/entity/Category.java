@@ -26,6 +26,10 @@ public class Category  implements Serializable {
 	@Column(name="category_name",nullable = false)
 	private String categoryName;
 
+	@Column(name="department_id",nullable = false)
+	private int departmentId;
+
+
 	//bi-directional many-to-one association to SubCategory
 	@OneToMany(mappedBy="category", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<SubCategory> subCategories;

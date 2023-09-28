@@ -21,11 +21,6 @@ public class ProductsController {
 
   @Autowired
   ProductService productService ;
-  @GetMapping(path = "location")
-  public ResponseEntity<List<LocationDTO>> getLocations() {
-    List<LocationDTO> response =  locationService.getAll();
-    return new ResponseEntity<>(response, HttpStatus.OK);
-  }
 
   @GetMapping(path = "{locationName}/{departmentName}/{categoryName}/{subcategoryName}")
   public ResponseEntity<APIResponse> getProductDetails(@PathVariable(name = "locationName") String locationName,
@@ -56,6 +51,10 @@ public class ProductsController {
             .build();
     return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
   }
+
+
+
+
 
 
 }

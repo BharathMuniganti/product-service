@@ -28,18 +28,11 @@ public class SubCategory implements Serializable {
 	@Column(name = "category_id",nullable = false)
 	private Integer categoryId;
 
-	@Column(name="department_id" ,nullable = false)
-	private int departmentId;
-
 
 	// bi-directional many-to-one association to Category
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id", insertable = false, updatable = false)
 	private Category category;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "department_id", insertable = false, updatable = false)
-	private Department department;
 
 
 }
