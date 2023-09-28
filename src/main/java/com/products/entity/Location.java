@@ -33,13 +33,9 @@ public class Location implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="location_id")
-    private int location_id;
+    private int locationId;
 
     @Column(name="location_name",nullable = false)
     private String locationName;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", insertable = false, updatable = false)
-    private Department department;
 
 }

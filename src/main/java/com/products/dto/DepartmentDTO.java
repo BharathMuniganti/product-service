@@ -5,19 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import java.io.Serializable;
-
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SubCategoryDTO implements Serializable {
+public class DepartmentDTO {
 
-    private Integer subCategoryId;
-    private String subCatName;
-    private Integer categoryId;
     private int departmentId;
-
+    private String departmentName;
+    private Integer locationId;
 }

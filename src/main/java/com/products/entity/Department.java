@@ -24,8 +24,14 @@ public class Department implements Serializable {
     @Column(name="department_name",nullable = false)
     private String departmentName;
 
+
+    @Column(name = "location_id",nullable = false)
+    private Integer locationId;
+
+    // bi-directional many-to-one association to Location
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sub_category_id", insertable = false, updatable = false)
-    private SubCategory subCategory;
+    @JoinColumn(name = "location_id", insertable = false, updatable = false)
+    private Location location;
+
 
 }

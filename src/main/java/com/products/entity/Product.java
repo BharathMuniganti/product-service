@@ -20,14 +20,17 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="sku")
-    private int sku;
+    private Integer sku;
 
     @Column(name="name",nullable = false)
     private String name;
 
+    @Column(name = "sub_category_id",nullable = false)
+    private Integer subCategoryId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "location_id", insertable = false, updatable = false)
-    private Location Location;
+    @JoinColumn(name = "sub_category_id", insertable = false, updatable = false)
+    private SubCategory subCategory;
 
 
 }

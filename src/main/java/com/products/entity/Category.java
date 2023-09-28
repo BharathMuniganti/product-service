@@ -21,7 +21,7 @@ public class Category  implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="category_id")
-	private int categoryId;
+	private Integer categoryId;
 
 	@Column(name="category_name",nullable = false)
 	private String categoryName;

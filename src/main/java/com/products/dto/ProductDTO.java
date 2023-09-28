@@ -8,16 +8,14 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import java.io.Serializable;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SubCategoryDTO implements Serializable {
+public class ProductDTO implements Serializable {
 
+    private Integer sku;
+    private String name;
     private Integer subCategoryId;
-    private String subCatName;
-    private Integer categoryId;
-    private int departmentId;
 
 }

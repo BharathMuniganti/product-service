@@ -1,17 +1,13 @@
 package com.products.controller;
 
 
-import com.products.dto.APIResponse;
-import com.products.dto.GetProductDetailsDTO;
-import com.products.dto.LocationDTO;
+import com.products.dto.*;
 import com.products.service.LocationService;
+import com.products.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +18,9 @@ public class ProductsController {
   @Autowired
   LocationService locationService;
 
+
+  @Autowired
+  ProductService productService ;
   @GetMapping(path = "location")
   public ResponseEntity<List<LocationDTO>> getLocations() {
     List<LocationDTO> response =  locationService.getAll();
@@ -44,6 +43,18 @@ public class ProductsController {
             .build();
     return new ResponseEntity<>(responseDTO, HttpStatus.OK);
 
+  }
+
+
+  @PostMapping(path = "/product",produces = "application/json" , consumes = "application/json")
+  public ResponseEntity<APIResponse> save(@RequestBody ProductDTO productDTO) throws Exception {
+    ProductDTO response = productService.save(productDTO);
+    APIResponse<ProductDTO> responseDTO = APIResponse
+            .<ProductDTO>builder()
+            .status(201)
+            .data(response)
+            .build();
+    return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
   }
 
 

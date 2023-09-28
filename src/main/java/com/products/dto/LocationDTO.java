@@ -14,8 +14,7 @@ import javax.persistence.Column;
 @Builder
 public class LocationDTO {
 
-    private int location_id;
-
+    private int locationId;
     private String locationName;
 
 }

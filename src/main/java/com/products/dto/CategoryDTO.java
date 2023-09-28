@@ -16,7 +16,7 @@ import java.util.List;
 @Builder
 public class CategoryDTO implements Serializable {
 
-    private int categoryId;
+    private Integer categoryId;
     private String categoryName;
     private List<SubCategoryDTO> subCategories;
 

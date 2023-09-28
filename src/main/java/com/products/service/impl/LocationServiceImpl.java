@@ -32,6 +32,9 @@ public class LocationServiceImpl implements LocationService {
 
     @Autowired
     GetProductDetailsMapper getProductDetailsMapper ;
+
+
+
     @Override
     public List<LocationDTO> getAll() {
         List<Location> result = new ArrayList();
@@ -56,6 +59,12 @@ public class LocationServiceImpl implements LocationService {
             return new ArrayList<>();
 
         return getProductDetailsMapper.entitiesToDTOs(resultList);
+    }
+
+    @Override
+    public LocationDTO save(LocationDTO locationDTO) {
+        return locationMapper.entityToDTO(
+                locationRepository.save(locationMapper.dtoToEntity(locationDTO)));
     }
 
 
